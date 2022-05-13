@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>Please Haul Perishables</name>
+  <author>Jellypowered</author>
+  <supportedVersions>
+    <li>1.1</li>
+    <li>1.2</li>
+  </supportedVersions>
+  <packageId>jelly.pleasehaulperishables</packageId>
+  <description>Adds new WorkGivers for hauling, which prioritise hauling perishables or food over non-perishables. Items will be considered perishable if they would rot in less than a year or deteriorate to zero hitpoints in ten days or less.
+
+Rain and water, which both cause higher deterioration rates, will be taken into account.
+
+Perishable items will only be given priority for hauling if they are outside.
+
+A check is made to see if the perishable has a large enough stack size. Things which have a maximum stack size of 1 (weapons and apparel for example) pass automatically. Other perishables must have a high enough stack count for that kind of item. The exact threshold depends on the hauler's current carrying capacity and the ideal carrying capacity for their race, but it only goes as high as 40. The perishable can still pass the check if there are other perishables of the same type nearby, or if it would deteriorate to zero hitpoints in ten days or less.
+
+Food will also be hauled if it needs to go from low to high priority storage.
+
+A new general hauling routine prefers valuable items like silver or big stacks of items for hauling, regardless of whether they are perishable or not. It will look at a square grid and a plus-shaped grid of cells to see if a big stack of the same type of item could be made. The normal general hauling routine picks up any leftovers.
+
+New in this version, if Pick Up and Haul is active, the mod will use its hauling routine instead, but the order in which things will be hauled will still be decided by this mod.
+
+Also, to improve performance, the lists of things to be hauled will be cached in memory and only updated when a certain number of in-game ticks have passed.
+
+A debug mode exists and will give feedback when you right-click a haulable, so if it is not considered perishable or food or a big stack, that will show as a reason for not doing the job, in addition to still allowing you to manually prioritise hauling.
+
+[Version 1.5.2]
+</description>
+</ModMetaData>

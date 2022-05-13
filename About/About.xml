@@ -1,23 +1,37 @@
-# PleaseHaulPerishables
-
-![Image](https://i.imgur.com/buuPQel.png)
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>Please Haul Perishables (Continued)</name>
+  <packageId>Mlie.PleaseHaulPerishables</packageId>
+  <author>MarvinKosh</author>
+  <url>https://github.com/emipa606/PleaseHaulPerishables</url>
+  <supportedVersions>
+    <li>1.1</li>
+    <li>1.2</li>
+    <li>1.3</li>
+  </supportedVersions>
+  <modDependencies />
+  <loadAfter />
+  <description>[img]https://i.imgur.com/buuPQel.png[/img]
 Update of Jellypowereds update
 https://steamcommunity.com/sharedfiles/filedetails/?id=2073818889
 of MarvinKosh original mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=1542424432
 
-![Image](https://i.imgur.com/pufA0kM.png)
+[img]https://i.imgur.com/pufA0kM.png[/img]
 
+[table]
+    [tr]
+        [td][url=https://invite.gg/Mlie][img]https://i.imgur.com/zdzzBrc.png[/img][/url][/td]
+        [td][url=https://github.com/emipa606/PleaseHaulPerishables][img]https://i.imgur.com/kTkpTOE.png[/img][/url][/td]
+    [/tr]
+[/table]
 	
-![Image](https://i.imgur.com/Z4GOv8H.png)
-
-With permission, I've updated this to 1.1 compatibility. The only changes made was to detect [Url=https://steamcommunity.com/sharedfiles/filedetails/?id=1279012058]Pick Up and Haul correctly. Debug mode in the settings gives quite a bit more information as well.
+[img]https://i.imgur.com/Z4GOv8H.png[/img]
+With permission, I've updated this to 1.1 compatibility. The only changes made was to detect [Url=https://steamcommunity.com/sharedfiles/filedetails/?id=1279012058]Pick Up and Haul[/url] correctly. Debug mode in the settings gives quite a bit more information as well.
 Something I noticed is that this mod makes best effort to haul perishables, but your work priorities still govern when your pawns actually haul. 
-Original Mod: https://steamcommunity.com/sharedfiles/filedetails/?id=1542424432]Please Haul Perishables by https://steamcommunity.com/id/marvinkosh/myworkshopfiles/?appid=294100]Marvin
+Original Mod: [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1542424432]Please Haul Perishables[/url] by [url=https://steamcommunity.com/id/marvinkosh/myworkshopfiles/?appid=294100]Marvin[/url]
 
-# Original Description Below
-
+[h1]Original Description Below[/h1]
 
 Adds new WorkGivers for hauling, which prioritise hauling perishables or food over non-perishables. Items will be considered perishable if they would rot in less than a year or deteriorate to zero hitpoints in ten days or less.
 
@@ -39,8 +53,7 @@ A debug mode exists and will give feedback when you right-click a haulable, so i
 
 [Version 1.5.2]
 
-# Credits - Retained from Marvin's Source
-
+[h1]Credits - Retained from Marvin's Source[/h1]
 
 Original code by Marvin.
 
@@ -50,15 +63,13 @@ Steam thumbnail image backgrounds are royalty-free images from Pixabay or origin
 
 RimWorld unofficial font by Marnador.
 
-![Image](https://i.imgur.com/PwoNOj4.png)
-
-
-
--  See if the the error persists if you just have this mod and its requirements active.
--  If not, try adding your other mods until it happens again.
--  Post your error-log using https://steamcommunity.com/workshop/filedetails/?id=818773962]HugsLib and command Ctrl+F12
--  For best support, please use the Discord-channel for error-reporting.
--  Do not report errors by making a discussion-thread, I get no notification of that.
--  If you have the solution for a problem, please post it to the GitHub repository.
-
-
+[img]https://i.imgur.com/PwoNOj4.png[/img]
+[list]
+[*] See if the the error persists if you just have this mod and its requirements active.
+[*] If not, try adding your other mods until it happens again.
+[*] Post your error-log using [url=https://steamcommunity.com/workshop/filedetails/?id=818773962]HugsLib[/url] and command Ctrl+F12
+[*] For best support, please use the Discord-channel for error-reporting.
+[*] Do not report errors by making a discussion-thread, I get no notification of that.
+[*] If you have the solution for a problem, please post it to the GitHub repository.
+[/list]</description>
+</ModMetaData>
