@@ -62,12 +62,7 @@ public static class ModdedStoreUtil
             thereIsRoom = true;
         }
 
-        if (stackFull || thereIsRoom)
-        {
-            return true;
-        }
-
-        return false;
+        return stackFull || thereIsRoom;
     }
 
     private static bool ContainsThingWithSameDef(Thing t, IntVec3 c, Map m)
@@ -81,12 +76,7 @@ public static class ModdedStoreUtil
             }
         }
 
-        if (hasSameDef)
-        {
-            return true;
-        }
-
-        return false;
+        return hasSameDef;
     }
 
     public static bool TryFindBestBetterStoreCellFor(Thing t, Pawn carrier, Map map, StoragePriority currentPriority,

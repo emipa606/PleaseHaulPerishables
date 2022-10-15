@@ -131,23 +131,13 @@ public class WorkGiver_HaulFood : WorkGiver_Haul
         }
 
         outcells.TryRandomElement(out var result);
-        if (result.IsValid)
-        {
-            return true;
-        }
-
-        return false;
+        return result.IsValid;
     }
 
     private bool CanPawnEatAnimalFeed(Thing t, Pawn animal)
     {
-        if (animal.health.State != PawnHealthState.Mobile || !animal.RaceProps.Animal ||
-            !animal.RaceProps.Eats(t.def.ingestible.foodType))
-        {
-            return false;
-        }
-
-        return true;
+        return animal.health.State == PawnHealthState.Mobile && animal.RaceProps.Animal &&
+               animal.RaceProps.Eats(t.def.ingestible.foodType);
     }
 
     private bool ShouldPetFoodBeMoved(Thing t, Pawn animal, Pawn colonist, out List<IntVec3> outcells)
@@ -197,12 +187,7 @@ public class WorkGiver_HaulFood : WorkGiver_Haul
         }
 
         outcells = list;
-        if (foundCell)
-        {
-            return true;
-        }
-
-        return false;
+        return foundCell;
     }
 
     private bool CellsThatCanTakeThingForAnimal(List<IntVec3> SlotCellList, Thing t, Pawn animal,
@@ -238,11 +223,6 @@ public class WorkGiver_HaulFood : WorkGiver_Haul
         }
 
         outcells = list;
-        if (list.Count > 0)
-        {
-            return true;
-        }
-
-        return false;
+        return list.Count > 0;
     }
 }

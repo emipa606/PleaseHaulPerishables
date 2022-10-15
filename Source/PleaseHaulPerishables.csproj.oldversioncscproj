@@ -1,22 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <AssemblyName>PleaseHaulPerishables</AssemblyName>
-    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <OutputPath>..\..\1.3\Assemblies</OutputPath>
     <TargetFramework>net472</TargetFramework>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <DebugType>None</DebugType>
+    <LangVersion>latest</LangVersion>
+    <FileVersion>1.3.0</FileVersion>
   </PropertyGroup>
-  <PropertyGroup>
-    <LangVersion>Preview</LangVersion>
-    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup />
-  <ItemGroup />
   <ItemGroup>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\..\..\..\..\..\ModPublishing\Binaries\Assembly-CSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\..\..\..\..\..\..\..\ModPublishing\Binaries\UnityEngine.CoreModule.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Core" />
+    <PackageReference Include="Krafs.Rimworld.Ref">
+      <Version>*</Version>
+      <ExcludeAssets>runtime</ExcludeAssets>
+      <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 </Project>
