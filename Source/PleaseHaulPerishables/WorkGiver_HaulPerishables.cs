@@ -46,23 +46,12 @@ public class WorkGiver_HaulPerishables : WorkGiver_Haul
             return 99999f;
         }
 
-        var thingCategories = detAble.def.thingCategories;
-        if (thingCategories.Contains(ThingCategoryDef.Named("WeaponsRanged")))
+        if (detAble.def.IsWeapon)
         {
             num *= 10f;
         }
 
-        if (thingCategories.Contains(ThingCategoryDef.Named("WeaponsMelee")))
-        {
-            num *= 10f;
-        }
-
-        if (thingCategories.Contains(ThingCategoryDefOf.Apparel))
-        {
-            num *= 10f;
-        }
-
-        if (thingCategories.Contains(ThingCategoryDef.Named("Headgear")))
+        if (detAble.def.IsApparel)
         {
             num *= 10f;
         }
