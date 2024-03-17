@@ -41,7 +41,7 @@ public static class ModdedStoreUtil
 
         foreach (var item in thingList)
         {
-            if (item is not { def: { } } || item == t)
+            if (item is not { def: not null } || item == t)
             {
                 continue;
             }
@@ -70,7 +70,7 @@ public static class ModdedStoreUtil
         var hasSameDef = false;
         foreach (var thing in c.GetThingList(m))
         {
-            if (thing is { def: { } } && thing != t)
+            if (thing is { def: not null } && thing != t)
             {
                 hasSameDef |= thing.def == t.def;
             }

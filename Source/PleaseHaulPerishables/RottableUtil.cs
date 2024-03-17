@@ -8,12 +8,7 @@ public static class RottableUtil
     public static bool ProtectedByEdifice(IntVec3 c, Map map)
     {
         var edifice = c.GetEdifice(map);
-        if (edifice != null && edifice.def.building != null)
-        {
-            return edifice.def.building.preventDeteriorationOnTop;
-        }
-
-        return false;
+        return edifice?.def.building is { preventDeteriorationOnTop: true };
     }
 
     public static float GetRotDays(Thing t)

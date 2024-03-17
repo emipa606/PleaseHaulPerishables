@@ -8,11 +8,11 @@ public static class RememberUtil
     public static bool TryRetrieveThingListFromMapCache(Map map, Dictionary<Map, int> tickOfLastUpdate,
         Dictionary<Map, List<Thing>> data, out List<Thing> returnList, int updateInterval = 240)
     {
-        if (!tickOfLastUpdate.ContainsKey(map))
+        if (!tickOfLastUpdate.TryGetValue(map, out var value))
         {
             tickOfLastUpdate.Add(map, GenTicks.TicksGame);
         }
-        else if (data.ContainsKey(map) && GenTicks.TicksGame < tickOfLastUpdate[map] + updateInterval)
+        else if (data.ContainsKey(map) && GenTicks.TicksGame < value + updateInterval)
         {
             returnList = data[map];
             return true;
@@ -34,14 +34,7 @@ public static class RememberUtil
             Log.Warning($"tickOfLastUpdate did not contain {map}");
         }
 
-        if (data.ContainsKey(map))
-        {
-            data[map] = newValue;
-        }
-        else
-        {
-            data.Add(map, newValue);
-        }
+        data[map] = newValue;
     }
 
     public static void FlushDataOfOldMaps(Dictionary<Map, int> dictToCheck)

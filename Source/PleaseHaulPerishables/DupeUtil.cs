@@ -68,7 +68,7 @@ public static class DupeUtil
 
             foreach (var item in thingList)
             {
-                if (item is { def: { } } && item != t && item.def == t.def &&
+                if (item is { def: not null } && item != t && item.def == t.def &&
                     HaulAIUtility.PawnCanAutomaticallyHaulFast(carrier, item, forced))
                 {
                     list.Add(item);

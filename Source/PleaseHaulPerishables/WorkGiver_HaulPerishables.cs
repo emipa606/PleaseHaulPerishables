@@ -121,7 +121,7 @@ public class WorkGiver_HaulPerishables : WorkGiver_Haul
         var list = new List<Thing>();
         foreach (var item in pawn.Map.listerHaulables.ThingsPotentiallyNeedingHauling())
         {
-            if (!(item is Corpse) && GetIsPerishable(item, pawn.Map))
+            if (item is not Corpse && GetIsPerishable(item, pawn.Map))
             {
                 list.Add(item);
             }
@@ -145,7 +145,8 @@ public class WorkGiver_HaulPerishables : WorkGiver_Haul
             var minStackSizeToCarry = CapacityUtil.GetMinStackSizeToCarry(pawn, 0.4f, 40);
             if (item2.stackCount < minStackSizeToCarry && detDays > 10f)
             {
-                if (item2.stackCount + DupeUtil.FindHowManyNearbyDupes(item2, 5, pawn, out var dupesList) <
+                if (item2.stackCount +
+                    DupeUtil.FindHowManyNearbyDupes(item2, GridRadiusToSearch, pawn, out var dupesList) <
                     minStackSizeToCarry)
                 {
                     continue;
