@@ -31,13 +31,13 @@ internal class Perishables_Loader : Mod
 
     public override void DoSettingsWindowContents(Rect inRect)
     {
-        var listing_Standard = new Listing_Standard
+        var listingStandard = new Listing_Standard
         {
             ColumnWidth = inRect.width / 3f
         };
-        listing_Standard.Begin(inRect);
-        listing_Standard.CheckboxLabeled("Perishables_Debug".Translate(), ref settings.debug);
-        listing_Standard.End();
+        listingStandard.Begin(inRect);
+        listingStandard.CheckboxLabeled("Perishables_Debug".Translate(), ref settings.debug);
+        listingStandard.End();
     }
 
     public class Perishables_Settings : ModSettings

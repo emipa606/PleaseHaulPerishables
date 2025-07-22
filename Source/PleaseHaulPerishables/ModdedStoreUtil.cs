@@ -15,7 +15,7 @@ public static class ModdedStoreUtil
         var temperature = storeCell.GetTemperature(m);
         var temperature2 = t.Position.GetTemperature(m);
         var num = temperature2 - temperature;
-        if (temperature <= 9f && num >= -3f)
+        if (temperature <= IceBoxTempThresh && num >= -3f)
         {
             return temperature2 > 0f;
         }
@@ -32,9 +32,9 @@ public static class ModdedStoreUtil
         var thingList = c.GetThingList(m);
         var num2 = t.def.stackLimit;
         if (c.GetFirstBuilding(m) is Building_Storage thing &&
-            DefDatabase<StatDef>.GetNamedSilentFail("ES_StorageFactor") != null)
+            DefDatabase<StatDef>.GetNamedSilentFail(ExtendedStorageStatName) != null)
         {
-            var statValue = thing.GetStatValue(StatDef.Named("ES_StorageFactor"));
+            var statValue = thing.GetStatValue(StatDef.Named(ExtendedStorageStatName));
             num2 = (int)(num2 * statValue);
             hasEsStorageFactor = true;
         }

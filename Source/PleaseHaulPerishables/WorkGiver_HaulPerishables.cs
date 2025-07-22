@@ -22,28 +22,28 @@ public class WorkGiver_HaulPerishables : WorkGiver_Haul
 
     private const int PerishablesUpdateInterval = 240;
 
-    private static readonly Dictionary<Map, List<Thing>> allPerishables = new Dictionary<Map, List<Thing>>();
+    private static readonly Dictionary<Map, List<Thing>> allPerishables = new();
 
-    private static readonly Dictionary<Map, int> tickOfLastUpdate = new Dictionary<Map, int>();
+    private static readonly Dictionary<Map, int> tickOfLastUpdate = new();
 
     private float GetDetDays(Thing detAble, Map map)
     {
         var statBases = detAble.def.statBases;
         if (RottableUtil.ProtectedByEdifice(detAble.Position, map))
         {
-            return 99999f;
+            return DefaultDetDays;
         }
 
         var deteriorationRate = StatDefOf.DeteriorationRate;
         if (!statBases.StatListContains(deteriorationRate))
         {
-            return 99999f;
+            return DefaultDetDays;
         }
 
         var num = statBases.GetStatValueFromList(deteriorationRate, 0f);
         if (num <= 0f)
         {
-            return 99999f;
+            return DefaultDetDays;
         }
 
         if (detAble.def.IsWeapon)
@@ -95,7 +95,7 @@ public class WorkGiver_HaulPerishables : WorkGiver_Haul
             usesOutdoorTemperature = invalid.GetRoom(m).UsesOutdoorTemperature;
         }
 
-        if (detDays <= 10f)
+        if (detDays <= DeteriorateDaysThresh)
         {
             if (usesOutdoorTemperature)
             {
@@ -142,7 +142,7 @@ public class WorkGiver_HaulPerishables : WorkGiver_Haul
             }
 
             var detDays = GetDetDays(item2, pawn.Map);
-            var minStackSizeToCarry = CapacityUtil.GetMinStackSizeToCarry(pawn, 0.4f, 40);
+            var minStackSizeToCarry = CapacityUtil.GetMinStackSizeToCarry(pawn, CarryCapacityThresh, 40);
             if (item2.stackCount < minStackSizeToCarry && detDays > 10f)
             {
                 if (item2.stackCount +

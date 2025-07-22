@@ -19,19 +19,19 @@ public class WorkGiver_HaulGeneralBigStacks : WorkGiver_Haul
 
     private const int bigStacksUpdateInterval = 304;
 
-    private static readonly Dictionary<Map, List<Thing>> allBigStacks = new Dictionary<Map, List<Thing>>();
+    private static readonly Dictionary<Map, List<Thing>> allBigStacks = new();
 
-    private static readonly Dictionary<Map, int> tickOfLastUpdate = new Dictionary<Map, int>();
+    private static readonly Dictionary<Map, int> tickOfLastUpdate = new();
 
     public override IEnumerable<Thing> PotentialWorkThingsGlobal(Pawn pawn)
     {
         return pawn.Map.listerHaulables.ThingsPotentiallyNeedingHauling();
     }
 
-    private List<Thing> GetBigStacks(Pawn pawn)
+    private static List<Thing> getBigStacks(Pawn pawn)
     {
         if (RememberUtil.TryRetrieveThingListFromMapCache(pawn.Map, tickOfLastUpdate, allBigStacks, out var returnList,
-                304))
+                bigStacksUpdateInterval))
         {
             return returnList;
         }
@@ -46,16 +46,16 @@ public class WorkGiver_HaulGeneralBigStacks : WorkGiver_Haul
                 continue;
             }
 
-            if (item.def.BaseMarketValue * item.def.stackLimit > 350f)
+            if (item.def.BaseMarketValue * item.def.stackLimit > ValueThresh)
             {
                 list2.Add(item);
                 continue;
             }
 
-            var minStackSizeToCarry = CapacityUtil.GetMinStackSizeToCarry(pawn, 0.6f, 40);
+            var minStackSizeToCarry = CapacityUtil.GetMinStackSizeToCarry(pawn, CarryCapacityThresh, 40);
             if (item.stackCount < minStackSizeToCarry)
             {
-                var num = DupeUtil.FindHowManyNearbyDupes(item, 5, pawn, out var dupesList);
+                var num = DupeUtil.FindHowManyNearbyDupes(item, GridRadiusToSearch, pawn, out var dupesList);
                 if (item.stackCount + num >= minStackSizeToCarry)
                 {
                     list2.Add(item);
@@ -64,7 +64,7 @@ public class WorkGiver_HaulGeneralBigStacks : WorkGiver_Haul
                 }
 
                 dupesList.Clear();
-                num = DupeUtil.FindDupesInLine(item, 9, 1, pawn, out dupesList);
+                num = DupeUtil.FindDupesInLine(item, LineDupeLength, LineDupeWidth, pawn, out dupesList);
                 if (item.stackCount + num >= minStackSizeToCarry)
                 {
                     list2.Add(item);
@@ -100,7 +100,7 @@ public class WorkGiver_HaulGeneralBigStacks : WorkGiver_Haul
             return null;
         }
 
-        var bigStacks = GetBigStacks(pawn);
+        var bigStacks = getBigStacks(pawn);
         if (bigStacks == null)
         {
             if (Perishables_Loader.settings.debug)
@@ -136,6 +136,6 @@ public class WorkGiver_HaulGeneralBigStacks : WorkGiver_Haul
             Log.Message("PHP: Got a Job from Haul BigStacks");
         }
 
-        return HaulAIUtility.HaulToStorageJob(pawn, t);
+        return HaulAIUtility.HaulToStorageJob(pawn, t, forced);
     }
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  <!-- EN: (PHP) haul lots of general things -->
+  <HaulBigStacks.label>(PHP) haul lots of general things</HaulBigStacks.label>
+  <!-- EN: hauling -->
+  <HaulBigStacks.gerund>hauling</HaulBigStacks.gerund>
+  <!-- EN: haul -->
+  <HaulBigStacks.verb>haul</HaulBigStacks.verb>
+</LanguageData>

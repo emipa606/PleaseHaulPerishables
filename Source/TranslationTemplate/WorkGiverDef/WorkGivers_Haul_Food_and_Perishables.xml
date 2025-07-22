@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  <!-- EN: (PHP) haul foods -->
+  <HaulFoods.label>(PHP) haul foods</HaulFoods.label>
+  <!-- EN: hauling -->
+  <HaulFoods.gerund>hauling</HaulFoods.gerund>
+  <!-- EN: haul -->
+  <HaulFoods.verb>haul</HaulFoods.verb>
+  <!-- EN: (PHP) haul perishable things -->
+  <HaulPerishables.label>(PHP) haul perishable things</HaulPerishables.label>
+  <!-- EN: hauling -->
+  <HaulPerishables.gerund>hauling</HaulPerishables.gerund>
+  <!-- EN: haul -->
+  <HaulPerishables.verb>haul</HaulPerishables.verb>
+</LanguageData>

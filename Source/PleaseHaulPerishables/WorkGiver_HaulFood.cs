@@ -11,18 +11,19 @@ public class WorkGiver_HaulFood : WorkGiver_Haul
 
     private const int FoodUpdateInterval = 272;
 
-    private static readonly Dictionary<Map, List<Thing>> allFood = new Dictionary<Map, List<Thing>>();
+    private static readonly Dictionary<Map, List<Thing>> allFood = new();
 
-    private static readonly Dictionary<Map, int> tickOfLastUpdate = new Dictionary<Map, int>();
+    private static readonly Dictionary<Map, int> tickOfLastUpdate = new();
 
     public override IEnumerable<Thing> PotentialWorkThingsGlobal(Pawn pawn)
     {
         return pawn.Map.listerHaulables.ThingsPotentiallyNeedingHauling();
     }
 
-    public List<Thing> GetFood(Pawn pawn)
+    private static List<Thing> getFood(Pawn pawn)
     {
-        if (RememberUtil.TryRetrieveThingListFromMapCache(pawn.Map, tickOfLastUpdate, allFood, out var returnList, 272))
+        if (RememberUtil.TryRetrieveThingListFromMapCache(pawn.Map, tickOfLastUpdate, allFood, out var returnList,
+                FoodUpdateInterval))
         {
             return returnList;
         }
@@ -54,7 +55,7 @@ public class WorkGiver_HaulFood : WorkGiver_Haul
             return null;
         }
 
-        var food = GetFood(pawn);
+        var food = getFood(pawn);
         if (food == null)
         {
             if (Perishables_Loader.settings.debug)
@@ -90,7 +91,7 @@ public class WorkGiver_HaulFood : WorkGiver_Haul
             Log.Message("PHP: Got a Job from Haul Food");
         }
 
-        return HaulAIUtility.HaulToStorageJob(pawn, t);
+        return HaulAIUtility.HaulToStorageJob(pawn, t, forced);
     }
 
     private bool CanAnyoneEatThisIfPawnMovesIt(Thing t, Pawn p)
@@ -108,7 +109,7 @@ public class WorkGiver_HaulFood : WorkGiver_Haul
         var list2 = new List<Pawn>();
         foreach (var pawn in list)
         {
-            if (CanPawnEatAnimalFeed(t, pawn))
+            if (canPawnEatAnimalFeed(t, pawn))
             {
                 list2.Add(pawn);
             }
@@ -116,7 +117,7 @@ public class WorkGiver_HaulFood : WorkGiver_Haul
 
         foreach (var animal in list2)
         {
-            if (!ShouldPetFoodBeMoved(t, animal, p, out outcells))
+            if (!shouldPetFoodBeMoved(t, animal, p, out outcells))
             {
                 continue;
             }
@@ -134,13 +135,13 @@ public class WorkGiver_HaulFood : WorkGiver_Haul
         return result.IsValid;
     }
 
-    private bool CanPawnEatAnimalFeed(Thing t, Pawn animal)
+    private static bool canPawnEatAnimalFeed(Thing t, Pawn animal)
     {
         return animal.health.State == PawnHealthState.Mobile && animal.RaceProps.Animal &&
                animal.RaceProps.Eats(t.def.ingestible.foodType);
     }
 
-    private bool ShouldPetFoodBeMoved(Thing t, Pawn animal, Pawn colonist, out List<IntVec3> outcells)
+    private bool shouldPetFoodBeMoved(Thing t, Pawn animal, Pawn colonist, out List<IntVec3> outcells)
     {
         var foundCell = false;
         var list = new List<IntVec3>();
@@ -150,7 +151,7 @@ public class WorkGiver_HaulFood : WorkGiver_Haul
         {
             var slotGroup = allGroupsListInPriorityOrder[i];
             if (!slotGroup.Settings.AllowedToAccept(t) ||
-                !CellsThatCanTakeThingForAnimal(slotGroup.CellsList, t, animal, out var outcells2))
+                !cellsThatCanTakeThingForAnimal(slotGroup.CellsList, t, animal, out var outcells2))
             {
                 continue;
             }
@@ -190,7 +191,7 @@ public class WorkGiver_HaulFood : WorkGiver_Haul
         return foundCell;
     }
 
-    private bool CellsThatCanTakeThingForAnimal(List<IntVec3> SlotCellList, Thing t, Pawn animal,
+    private static bool cellsThatCanTakeThingForAnimal(List<IntVec3> SlotCellList, Thing t, Pawn animal,
         out List<IntVec3> outcells)
     {
         var list = new List<IntVec3>();

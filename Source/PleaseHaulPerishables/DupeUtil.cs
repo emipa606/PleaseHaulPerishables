@@ -55,7 +55,7 @@ public static class DupeUtil
         cellList = list;
     }
 
-    private static int CountDupes(Thing t, List<IntVec3> cellList, Pawn carrier, bool forced, out List<Thing> dupesList)
+    private static int countDupes(Thing t, List<IntVec3> cellList, Pawn carrier, bool forced, out List<Thing> dupesList)
     {
         var list = new List<Thing>();
         foreach (var cell in cellList)
@@ -89,12 +89,12 @@ public static class DupeUtil
     public static int FindDupesInLine(Thing t, int lineLength, int lineWidth, Pawn carrier, out List<Thing> dupesList)
     {
         MakePlusGridBasedOn(t.Position, carrier.Map, lineLength, lineWidth, out var cellList);
-        return CountDupes(t, cellList, carrier, false, out dupesList);
+        return countDupes(t, cellList, carrier, false, out dupesList);
     }
 
     public static int FindHowManyNearbyDupes(Thing t, int gridRadiusToSearch, Pawn carrier, out List<Thing> dupesList)
     {
         MakeSquareGridBasedOn(t.Position, carrier.Map, gridRadiusToSearch, out var cellList);
-        return CountDupes(t, cellList, carrier, false, out dupesList);
+        return countDupes(t, cellList, carrier, false, out dupesList);
     }
 }
