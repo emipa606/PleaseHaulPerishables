@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Verse;
 
 namespace PleaseHaulPerishables;
@@ -39,23 +40,17 @@ public static class RememberUtil
 
     public static void FlushDataOfOldMaps(Dictionary<Map, int> dictToCheck)
     {
-        foreach (var key in dictToCheck.Keys)
+        foreach (var key in dictToCheck.Keys.Where(key => key == null).ToList())
         {
-            if (key == null)
-            {
-                dictToCheck.Remove(key);
-            }
+            dictToCheck.Remove(key);
         }
     }
 
     public static void FlushDataOfOldMaps(Dictionary<Map, List<Thing>> dictToCheck)
     {
-        foreach (var key in dictToCheck.Keys)
+        foreach (var key in dictToCheck.Keys.Where(key => key == null).ToList())
         {
-            if (key == null)
-            {
-                dictToCheck.Remove(key);
-            }
+            dictToCheck.Remove(key);
         }
     }
 }

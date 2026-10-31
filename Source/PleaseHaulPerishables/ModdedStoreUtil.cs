@@ -23,62 +23,6 @@ public static class ModdedStoreUtil
         return false;
     }
 
-    private static bool ContainsPartialThingWithSameDef(Thing t, IntVec3 c, Map m)
-    {
-        var stackFull = false;
-        var hasEsStorageFactor = false;
-        var thereIsRoom = false;
-        var num = 0;
-        var thingList = c.GetThingList(m);
-        var num2 = t.def.stackLimit;
-        if (c.GetFirstBuilding(m) is Building_Storage thing &&
-            DefDatabase<StatDef>.GetNamedSilentFail(ExtendedStorageStatName) != null)
-        {
-            var statValue = thing.GetStatValue(StatDef.Named(ExtendedStorageStatName));
-            num2 = (int)(num2 * statValue);
-            hasEsStorageFactor = true;
-        }
-
-        foreach (var item in thingList)
-        {
-            if (item is not { def: not null } || item == t)
-            {
-                continue;
-            }
-
-            if (item.def == t.def && !hasEsStorageFactor)
-            {
-                stackFull |= item.stackCount + t.stackCount <= num2;
-            }
-
-            if (item.def == t.def && hasEsStorageFactor)
-            {
-                num += item.stackCount;
-            }
-        }
-
-        if (hasEsStorageFactor && num < num2)
-        {
-            thereIsRoom = true;
-        }
-
-        return stackFull || thereIsRoom;
-    }
-
-    private static bool ContainsThingWithSameDef(Thing t, IntVec3 c, Map m)
-    {
-        var hasSameDef = false;
-        foreach (var thing in c.GetThingList(m))
-        {
-            if (thing is { def: not null } && thing != t)
-            {
-                hasSameDef |= thing.def == t.def;
-            }
-        }
-
-        return hasSameDef;
-    }
-
     public static bool TryFindBestBetterStoreCellFor(Thing t, Pawn carrier, Map map, StoragePriority currentPriority,
         Faction faction, out IntVec3 foundCell, bool needAccurateResult = true, bool mustBeColder = false,
         bool mustProtectFromDeterioration = true)

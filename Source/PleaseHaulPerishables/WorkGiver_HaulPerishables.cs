@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -26,7 +27,7 @@ public class WorkGiver_HaulPerishables : WorkGiver_Haul
 
     private static readonly Dictionary<Map, int> tickOfLastUpdate = new();
 
-    private float GetDetDays(Thing detAble, Map map)
+    private static float GetDetDays(Thing detAble, Map map)
     {
         var statBases = detAble.def.statBases;
         if (RottableUtil.ProtectedByEdifice(detAble.Position, map))
@@ -79,7 +80,7 @@ public class WorkGiver_HaulPerishables : WorkGiver_Haul
         return 99999f;
     }
 
-    private bool GetIsPerishable(Thing t, Map m)
+    private static bool GetIsPerishable(Thing t, Map m)
     {
         var rotDays = RottableUtil.GetRotDays(t);
         var detDays = GetDetDays(t, m);
@@ -110,7 +111,7 @@ public class WorkGiver_HaulPerishables : WorkGiver_Haul
         return false;
     }
 
-    private List<Thing> ListPerishables(Pawn pawn)
+    private static List<Thing> ListPerishables(Pawn pawn)
     {
         if (RememberUtil.TryRetrieveThingListFromMapCache(pawn.Map, tickOfLastUpdate, allPerishables,
                 out var returnList))
@@ -119,12 +120,10 @@ public class WorkGiver_HaulPerishables : WorkGiver_Haul
         }
 
         var list = new List<Thing>();
-        foreach (var item in pawn.Map.listerHaulables.ThingsPotentiallyNeedingHauling())
+        foreach (var item in pawn.Map.listerHaulables.ThingsPotentiallyNeedingHauling()
+                     .Where(item => item is not Corpse && GetIsPerishable(item, pawn.Map)))
         {
-            if (item is not Corpse && GetIsPerishable(item, pawn.Map))
-            {
-                list.Add(item);
-            }
+            list.Add(item);
         }
 
         var list2 = new List<Thing>();
@@ -177,22 +176,7 @@ public class WorkGiver_HaulPerishables : WorkGiver_Haul
         return pawn.Map.listerHaulables.ThingsPotentiallyNeedingHauling().Count == 0;
     }
 
-    private bool TestStoreInColderPlace(Pawn p, Thing t, out IntVec3 storeCell)
-    {
-        storeCell = IntVec3.Invalid;
-        var map = p.Map;
-        var currentPriority = StoreUtility.StoragePriorityAtFor(t.Position, t);
-        if (!ModdedStoreUtil.TryFindBestBetterStoreCellFor(t, p, map, currentPriority, p.Faction, out var foundCell,
-                true, true))
-        {
-            return false;
-        }
-
-        storeCell = foundCell;
-        return true;
-    }
-
-    private bool TestStoreInside(Pawn p, Thing t, out IntVec3 storeCell)
+    private static bool TestStoreInside(Pawn p, Thing t, out IntVec3 storeCell)
     {
         storeCell = IntVec3.Invalid;
         var map = p.Map;

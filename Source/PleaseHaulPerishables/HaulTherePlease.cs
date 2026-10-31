@@ -38,7 +38,7 @@ public static class HaulTherePlease
             }
 
             var workGiver_HaulGeneral = (WorkGiver_HaulGeneral)Activator.CreateInstance(typeInAnyAssembly);
-            if (workGiver_HaulGeneral.ShouldSkip(pawn, forced))
+            if (workGiver_HaulGeneral != null && workGiver_HaulGeneral.ShouldSkip(pawn, forced))
             {
                 return null;
             }
@@ -48,7 +48,7 @@ public static class HaulTherePlease
                 Log.Message($"PHP: {pawn} Got a Job, Hauling: {thing}from Haul There Please/PUAH");
             }
 
-            return workGiver_HaulGeneral.JobOnThing(pawn, thing, forced);
+            return workGiver_HaulGeneral?.JobOnThing(pawn, thing, forced);
         }
         catch (Exception ex)
         {
